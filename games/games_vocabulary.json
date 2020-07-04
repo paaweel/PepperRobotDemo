@@ -1,0 +1,40 @@
+{
+  "english": {
+    "voice_recogniser_language_symbol": "en-GB",
+    "welcome_game": "Welcome! It is nice to meet you.",
+    "standard_ultimatum_rules": "Let's play an Ultimatum game. I will tell you the rules. We both have 10 coins of money to share. We take turns in offering the ways of splitting them between two of us. We need to distribute all the coins and minimal amount is 1, maximal amount is 9. The other person can either accept or decline the offer. Acceptance results in distributing the money in the offered way. Declining means that neither of us get any money. The person with the largest amount of money wins.",
+    "ask_to_play": "Do you want to play this game with me?",
+    "inform_about_total_capital": "Total capital is 10 coins.",
+    "confirm_total_capital": "Great, you've picked",
+    "current_offer":"I offer you",
+    "ask_if_accepts": "Do you accept?",
+    "announce_receiving": "Great, you've received",
+    "offer_rejected": "Offer rejected! You walk away with nothing!",
+    "ask_for_offer": "Now, make your offer!",
+    "confirm_offer": "You've offered",
+    "offer_accepted": "Great, your offer was accepted!",
+    "thanks_for_playing": "Thanks for playing!",
+    "yes": ["yes", "I confirm", "I agree", "I accept", "I do"],
+    "no": ["no", "I don't confirm", "I don't agree", "I don't accept", "I don't"],
+    "unrecognised_speach": "I didn't understand. Could you please repeat?"
+  },
+  "polish":{
+    "voice_recogniser_language_symbol": "pl-PL",
+    "welcome_game": "Cześć. Miło cię poznać.",
+    "standard_ultimatum_rules": "Zagrajmy w grę Ultimatum. Podam ci zasady. Mamy w dwójkę 10 monet do podziału. Na zmianę oferujemy drugiemu graczowi sposób podziału tych monet międz nas. Musimy rodzielić wszystkie monety. Najmniejszą możliwą do przydzielenia stawką jest 1, a największą 9. Druga osoba może zaakceptować lub odrzucić ofertę. Akceptacja oznacza rozdzielenie pieniędzy w zaproponowany sposób. Odrzucenie oferty oznacza, że żaden z graczy nie dostaje pieniędzy. Osoba z największą ilością monet wygrywa. ",
+    "ask_to_play": "Chcesz zagrać w tę grę ze mną?",
+    "inform_about_total_capital": "Całościowy kapitał to 10 monet.",
+    "confirm_total_capital": "Wspaniale, wybrałes",
+    "current_offer":"Oferuję ci",
+    "ask_if_accepts": "Czy akceptujesz",
+    "announce_receiving": "Wspaniale, otrzymałeś",
+    "offer_rejected": "Oferta została odrzucona! Zostajesz z niczym!",
+    "ask_for_offer": "Teraz podaj swoją propozycję.",
+    "confirm_offer": "Zaproponowałeś",
+    "offer_accepted": "Wspaniale! Propozycja została zaakceptowana!",
+    "thanks_for_playing": "Dziękuję za grę!",
+    "yes": ["tak", "potwierdzam", "zgadzam się", "akceptuję"],
+    "no": ["nie", "nie potwierdzam", "zgadzam się", "nie akceptuję"],
+    "unrecognised_speach": "Nie zrozumiałem. Bardzo proszę o powtórzenie."
+  }
+}

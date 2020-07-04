@@ -1,0 +1,8 @@
+{
+  "ultimatum_standard": [
+	"greeting", "game_description", "ask_to_play"
+  ],
+  "ultimatum_test": [
+	"greeting"
+  ]
+}
