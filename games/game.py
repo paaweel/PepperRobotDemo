@@ -7,7 +7,7 @@ from games.ultimatum_standard import UltimatumStandard
 
 class Game:
     def __init__(self, path, pepper_player, game_type="ultimatum_standard"):
-        # type: (str, Pepper) -> object
+        # type: (Game, str, Pepper, str) -> None
         self.path = path
         self.pepper_player = pepper_player
         self.language = pepper_player.language
@@ -27,4 +27,7 @@ class Game:
 
     def play(self, test_mode=False):
         for step in self.game_schematic:
-            getattr(self.game_type, step)(test_mode)
+            finish = getattr(self.game_type, step)(test_mode)
+            if finish:
+                getattr(self.game_type, 'finish_game')(test_mode)
+                break

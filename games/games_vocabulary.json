@@ -16,7 +16,8 @@
     "thanks_for_playing": "Thanks for playing!",
     "yes": ["yes", "I confirm", "I agree", "I accept", "I do"],
     "no": ["no", "I don't confirm", "I don't agree", "I don't accept", "I don't"],
-    "unrecognised_speach": "I didn't understand. Could you please repeat?"
+    "unrecognised_speech": "I didn't understand. Could you please repeat?",
+    "finish_game": "Thank you for playing with me. I had a really good time."
   },
   "polish":{
     "voice_recogniser_language_symbol": "pl-PL",
@@ -35,6 +36,7 @@
     "thanks_for_playing": "Dziękuję za grę!",
     "yes": ["tak", "potwierdzam", "zgadzam się", "akceptuję"],
     "no": ["nie", "nie potwierdzam", "zgadzam się", "nie akceptuję"],
-    "unrecognised_speach": "Nie zrozumiałem. Bardzo proszę o powtórzenie."
+    "unrecognised_speech": "Nie zrozumiałem. Bardzo proszę o powtórzenie.",
+    "finish_game": "Dziękuję za grę. Naprawdę dobrze się bawiłem."
   }
 }
