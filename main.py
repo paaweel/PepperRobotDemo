@@ -2,7 +2,7 @@ import os
 import keyboard
 from multiprocessing import Process
 from games.game import Game
-from pepper import Pepper
+from pepper_modules.pepper import Pepper
 
 if __name__ == "__main__":
     path = os.getcwd()
