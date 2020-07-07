@@ -1,7 +1,7 @@
 import os
 import keyboard
 from multiprocessing import Process
-from games.game import Game
+from games.game import Game, GameTypes
 from pepper_modules.pepper import Pepper
 
 if __name__ == "__main__":
@@ -15,7 +15,7 @@ if __name__ == "__main__":
     pepper_watch_process.start()
 
     # Choose game type and start independent process with it. The game will trigger Pepper's utterance activity.
-    game = Game(path, pepper, "ultimatum_test")
+    game = Game(path, pepper, GameTypes.UltimatumTest)
     game_process = Process(target=game.play)
     game_process.start()
 
