@@ -25,11 +25,10 @@ class Pepper:
             self.session.connect("tcp://" + self.ip + ":" + str(self.port))
             print("Connected")
         except RuntimeError:
-            print ("Can't connect to Pepper at ip \"" + self.ip + "\" on port " + str(self.port) + ".\n"
-                                                                                                   "Please check your "
-                                                                                                   "script arguments. "
-                                                                                                   "Run with -h "
-                                                                                                   "option for help.")
+            print ("Can't connect to Pepper at ip \""
+                + self.ip + "\" on port " + str(self.port) + ".\n"
+                + "Please check your script arguments. "
+                + "Run with -h option for help.")
 
     def say(self, text):
         tts = self.session.service("ALTextToSpeech")

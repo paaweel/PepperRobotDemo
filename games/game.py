@@ -1,12 +1,17 @@
 import json
 import os
 import string
+import enum
 from pepper import Pepper
 from games.ultimatum_standard import UltimatumStandard
 
+class GameTypes(enum.Enum):
+   UltimatumStandard = 1
+   UltimatumTest = 2
 
+#change to abstract class whisch is implemented by Ultimatum*
 class Game:
-    def __init__(self, path, pepper_player, game_type="ultimatum_standard"):
+    def __init__(self, path, pepper_player, game_type=GameTypes.UltimatumStandard):
         # type: (Game, str, Pepper, str) -> None
         self.path = path
         self.pepper_player = pepper_player
@@ -20,8 +25,8 @@ class Game:
         self.games_vocabulary = games_vocabulary[string.lower(self.language)]
 
         available_games = {
-            "ultimatum_standard": UltimatumStandard,
-            "ultimatum_test": UltimatumStandard
+            GameTypes.UltimatumStandard: UltimatumStandard,
+            GameTypes.UltimatumTest: UltimatumStandard
         }
         self.game_type = available_games[game_type](self.language, self.pepper_player, self.games_vocabulary)
 
