@@ -32,7 +32,7 @@ class SoundProcessingModule(object):
         self.nbOfFramesToProcess = 20
         self.framesCount = 0
         self.micFront = []
-        self.module_name = "SoundProcessingModule"
+        self.module_name = "SoundProcessingModule2"
 
     def startProcessing(self):
         """
@@ -103,12 +103,12 @@ if __name__ == "__main__":
     try:
         # Initialize qi framework.
         connection_url = "tcp://" + args.ip + ":" + str(args.port)
-        app = qi.Application(["SoundProcessingModule", "--qi-url=" + connection_url])
+        app = qi.Application(["SoundProcessingModule2" + str(random.randint(20, 1000)), "--qi-url=" + connection_url])
     except RuntimeError:
         print ("Can't connect to pepper at ip \"" + args.ip + "\" on port " + str(args.port) +".\n"
                "Please check your script arguments. Run with -h option for help.")
         sys.exit(1)
 
     MySoundProcessingModule = SoundProcessingModule(app)
-    app.session.registerService("SoundProcessingModule", MySoundProcessingModule)
+    app.session.registerService("SoundProcessingModule2", MySoundProcessingModule)
     MySoundProcessingModule.startProcessing()
