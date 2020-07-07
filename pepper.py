@@ -15,7 +15,7 @@ class Pepper:
             expected_vocabulary = json.load(f)
         self.expected_vocabulary = expected_vocabulary[string.lower(language)]
         if not test_mode:
-            self.listen_session = self.session.service(" ALSpeechRecognition")
+            self.listen_session = self.session.service("ALSpeechRecognition")
             self.listen_session.setVocabulary(self.expected_vocabulary, False)
         self.listen_buf = []
 
@@ -23,6 +23,7 @@ class Pepper:
         try:
             # Initialize qi framework.
             self.session.connect("tcp://" + self.ip + ":" + str(self.port))
+            print("Connected")
         except RuntimeError:
             print ("Can't connect to Pepper at ip \"" + self.ip + "\" on port " + str(self.port) + ".\n"
                                                                                                    "Please check your "
@@ -32,6 +33,7 @@ class Pepper:
 
     def say(self, text):
         tts = self.session.service("ALTextToSpeech")
+        tts.setLanguage(self.language)
         tts.say(text)
 
     def open_listen(self):
