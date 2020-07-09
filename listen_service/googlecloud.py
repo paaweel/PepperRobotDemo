@@ -9,7 +9,7 @@ from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
 
-from Microphone import Microphone
+from microphone import Microphone
 
 
 class GoogleCloud(object):
@@ -106,8 +106,6 @@ class GoogleCloud(object):
 
 
 if __name__ == '__main__':
-    # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/ilona/Data/Dokumenty/Master_Studies/semestr_1/Pepper/" \
-     #                                              "YT Voice Control-69219517df9b.json"
     session = qi.Session()
     ip = '192.168.1.123'
     port = '9559'
@@ -124,3 +122,4 @@ if __name__ == '__main__':
     time.sleep(20)
     threadRecognition.do_run = False
     threadRecognition.join()
+    # g.run("test.txt")

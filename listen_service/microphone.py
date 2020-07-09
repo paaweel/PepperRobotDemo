@@ -15,12 +15,11 @@ class Microphone(object):
     It requires numpy.
     """
 
-    def __init__( self, session):
+    def __init__(self, session):
         """
         Initialise services and variables.
         """
         super(Microphone, self).__init__()
-
 
         self.audio_service = session.service("ALAudioDevice")
         self.module_name = ''.join([random.choice(string.ascii_letters) for n in xrange(32)])
@@ -29,11 +28,10 @@ class Microphone(object):
 
         self.isProcessingDone = True
         self.nbOfFramesToProcess = 20
-        self.framesCount=0
+        self.framesCount = 0
         self.micFront = []
         # self.module_name = Microphone.__class__.__name__
         self._buff = queue.Queue()
-
 
     def __enter__(self):
         self.audio_service.setClientPreferences(self.module_name, Microphone.RATE, 3, 0)
@@ -45,7 +43,6 @@ class Microphone(object):
         self.audio_service.unsubscribe(self.module_name)
         self.isProcessingDone = True
         self._buff.put(None)
-
 
     def startProcessing(self):
         """
@@ -64,7 +61,6 @@ class Microphone(object):
     def processRemote(self, nbOfChannels, nbOfSamplesByChannel, timeStamp, inputBuffer):
 
         self._buff.put(inputBuffer)
-
 
     def generator(self):
         while not self.isProcessingDone:
@@ -86,20 +82,18 @@ class Microphone(object):
                 except queue.Empty:
                     break
 
-
-
             yield data
 
 
 if __name__ == '__main__':
     session = qi.Session()
-    ip = '192.168.1.100'
+    ip = '192.168.1.123'
     port = '9559'
     try:
         session.connect("tcp://" + ip + ":" + port)
     except RuntimeError:
-        print ("Can't connect to Naoqi at ip \"" + ip + "\" on port " + port +".\n"
-               "Please check your script arguments. Run with -h option for help.")
+        print ("Can't connect to Naoqi at ip \"" + ip + "\" on port " + port + ".\n"
+                                                                               "Please check your script arguments. Run with -h option for help.")
         sys.exit(1)
     mic = Microphone(session)
     mic.__exit__(None, None, None)
