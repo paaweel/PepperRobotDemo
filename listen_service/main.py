@@ -2,16 +2,20 @@ import time
 from threading import Thread
 from flask import Flask
 import qi
+from urllib3.util import queue
+
 from googlecloud import GoogleCloud
 
 app = Flask('listenservice')
 text = ""
 gcSession = None
+session = None
+emotion_service = None
 
 
 def connect(ip="192.168.1.123", port="9559", language="English"):
     # type: (str, str, str) -> None
-    global gcSession
+    global gcSession, session, emotion_service
     session = qi.Session()
     try:
         session.connect("tcp://" + ip + ":" + port)
@@ -27,8 +31,8 @@ def connect(ip="192.168.1.123", port="9559", language="English"):
 # TODO accumulate the answer and redirect from console into API response
 @app.route('/', methods=['GET'])
 def listen():
+    global text, gcSession
     if gcSession:
-        global text, gcSession
         threadRecognition = Thread(target=gcSession.run,
                                    args=("test.txt",))
         threadRecognition.start()
@@ -42,13 +46,13 @@ def listen():
 @app.route('/test', methods=['GET'])
 def listen_test():
     global text
-    print("Tell me something, boy.")
+    print("Tell me something.")
     text = raw_input()
     return text
 
 
 if __name__ == '__main__':
-    test = True
+    test = False
     if not test:
         connect()
-    app.run(debug=True, port=6000)
+    app.run(debug=True, port=6000, use_reloader=False)

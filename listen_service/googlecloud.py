@@ -113,7 +113,8 @@ if __name__ == '__main__':
         session.connect("tcp://" + ip + ":" + port)
     except RuntimeError:
         print ("Can't connect to Naoqi at ip \"" + ip + "\" on port " + port + ".\n"
-                                                                               "Please check your script arguments. Run with -h option for help.")
+                                                                               "Please check your script arguments. "
+                                                                               "Run with -h option for help.")
         sys.exit(1)
     g = GoogleCloud(session)
     threadRecognition = Thread(target=g.run,

@@ -53,7 +53,7 @@ class Microphone(object):
         self.audio_service.subscribe(self.module_name)
         self.isProcessingDone = False
 
-        while self.isProcessingDone == False:
+        while not self.isProcessingDone:
             time.sleep(0.5)
 
         self.audio_service.unsubscribe(self.module_name)
