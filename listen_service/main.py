@@ -3,6 +3,7 @@ from threading import Thread
 from flask import Flask
 import qi
 from urllib3.util import queue
+from microphone from Microphone
 
 from googlecloud import GoogleCloud
 
@@ -36,9 +37,10 @@ def listen():
         threadRecognition = Thread(target=gcSession.run,
                                    args=("test.txt",))
         threadRecognition.start()
-        time.sleep(20)
+        time.sleep(10)
         threadRecognition.do_run = False
         threadRecognition.join()
+
         return "LISTEN function is not ready yet."
     return "Google Cloud not connected."
 
