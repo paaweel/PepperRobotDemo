@@ -23,6 +23,7 @@ class Microphone(object):
 
         self.audio_service = session.service("ALAudioDevice")
         self.module_name = ''.join([random.choice(string.ascii_letters) for n in xrange(32)])
+        print("Service is registered")
         session.registerService(self.module_name, self)
         # Get the service ALAudioDevice.
 
@@ -34,35 +35,40 @@ class Microphone(object):
         self._buff = queue.Queue()
 
     def __enter__(self):
+        print("ENETRING")
         self.audio_service.setClientPreferences(self.module_name, Microphone.RATE, 3, 0)
         self.audio_service.subscribe(self.module_name)
         self.isProcessingDone = False
         return self
 
     def __exit__(self, type, value, traceback):
+        print("EXITING")
         self.audio_service.unsubscribe(self.module_name)
         self.isProcessingDone = True
         self._buff.put(None)
 
     def startProcessing(self):
         """
-        Start processing
+        Start processingf
         """
+        print("START PROCESSING")
         # ask for the front microphone signal sampled at 16kHz
         self.audio_service.setClientPreferences(self.module_name, Microphone.RATE, 3, 0)
-        self.audio_service.subscribe(self.module_name)
+        # self.audio_service.subscribe(self.module_name)
         self.isProcessingDone = False
 
         while not self.isProcessingDone:
             time.sleep(0.5)
 
-        self.audio_service.unsubscribe(self.module_name)
+        # self.audio_service.unsubscribe(self.module_name)
 
     def processRemote(self, nbOfChannels, nbOfSamplesByChannel, timeStamp, inputBuffer):
+        print("PROCESSS REMOTE")
 
         self._buff.put(inputBuffer)
 
     def generator(self):
+        print("GENERATOR")
         while not self.isProcessingDone:
             # Use a blocking get() to ensure there's at least one chunk of
             # data, and stop iteration if the chunk is None, indicating the
@@ -93,7 +99,8 @@ if __name__ == '__main__':
         session.connect("tcp://" + ip + ":" + port)
     except RuntimeError:
         print ("Can't connect to Naoqi at ip \"" + ip + "\" on port " + port + ".\n"
-                                                                               "Please check your script arguments. Run with -h option for help.")
+                                                                               "Please check your script arguments. "
+                                                                               "Run with -h option for help.")
         sys.exit(1)
     mic = Microphone(session)
     mic.__exit__(None, None, None)

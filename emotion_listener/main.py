@@ -1,3 +1,5 @@
+import time
+
 from flask import Flask, request
 import qi
 
@@ -25,7 +27,10 @@ def connect(ip="192.168.1.123", port="9559", language="English"):
 def get_reaction():
     global emoSession
     if emoSession:
+        emoSession.subscribe("reactionMood", "Active")
+        time.sleep(2)
         reaction = emoSession.getEmotionalReaction()
+        emoSession.unsubscribe("reactionMood")
         return reaction
     return "Robot not connected."
 
@@ -34,7 +39,10 @@ def get_reaction():
 def get_state():
     global emoSession
     if emoSession:
+        emoSession.subscribe("stateMood", "Active")
+        time.sleep(3)
         state = emoSession.currentPersonState()
+        emoSession.unsubscribe("stateMood")
         return state
     return "Robot not connected."
 
