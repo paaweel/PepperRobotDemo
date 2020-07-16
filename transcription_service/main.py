@@ -4,7 +4,7 @@ from flask import Flask
 import requests
 
 app = Flask("transrption_service")
-decisionModuleUrl = "http://127.0.0.1:6002"
+decisionModuleUrl = "http://127.0.0.1:7000"
 
 gcWrapper = GooglecloudWrapper()
 
@@ -19,4 +19,4 @@ def send(response):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, port=6100, use_reloader=False)
