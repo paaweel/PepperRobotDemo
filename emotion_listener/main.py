@@ -10,7 +10,6 @@ session = None
 
 def connect(ip="192.168.1.123", port="9559", language="English"):
     # type: (str, str, str) -> None
-    global session, emoSession
     session = qi.Session()
     try:
         session.connect("tcp://" + ip + ":" + port)

@@ -1,106 +1,109 @@
-import string
-import random
+#! /usr/bin/env python
+# -*- encoding: UTF-8 -*-
 
 import qi
+import argparse
 import sys
-from six.moves import queue
-import numpy as np
 import time
+import numpy as np
 
 
-class Microphone(object):
-    RATE = 16000
+class SoundProcessingModule(object):
     """
     A simple get signal from the front microphone of Nao & calculate its rms power.
     It requires numpy.
     """
 
-    def __init__(self, session):
+    def __init__( self, app):
         """
         Initialise services and variables.
         """
-        super(Microphone, self).__init__()
+        super(SoundProcessingModule, self).__init__()
+        app.start()
+        session = app.session
 
-        self.audio_service = session.service("ALAudioDevice")
-        self.module_name = ''.join([random.choice(string.ascii_letters) for n in xrange(32)])
-        print("Service is registered")
-        session.registerService(self.module_name, self)
         # Get the service ALAudioDevice.
-
-        self.isProcessingDone = True
-        self.nbOfFramesToProcess = 20
-        self.framesCount = 0
-        self.micFront = []
-        # self.module_name = Microphone.__class__.__name__
-        self._buff = queue.Queue()
-
-    def __enter__(self):
-        print("ENETRING")
-        self.audio_service.setClientPreferences(self.module_name, Microphone.RATE, 3, 0)
-        self.audio_service.subscribe(self.module_name)
+        self.audio_service = session.service("ALAudioDevice")
         self.isProcessingDone = False
-        return self
-
-    def __exit__(self, type, value, traceback):
-        print("EXITING")
-        self.audio_service.unsubscribe(self.module_name)
-        self.isProcessingDone = True
-        self._buff.put(None)
+        self.nbOfFramesToProcess = 20
+        self.framesCount=0
+        self.micFront = []
+        self.module_name = "SoundProcessingModule"
 
     def startProcessing(self):
         """
-        Start processingf
+        Start processing
         """
-        print("START PROCESSING")
         # ask for the front microphone signal sampled at 16kHz
-        self.audio_service.setClientPreferences(self.module_name, Microphone.RATE, 3, 0)
-        # self.audio_service.subscribe(self.module_name)
-        self.isProcessingDone = False
+        # if you want the 4 channels call setClientPreferences(self.module_name, 48000, 0, 0)
+        self.audio_service.setClientPreferences(self.module_name, 16000, 3, 0)
+        self.audio_service.subscribe(self.module_name)
 
-        while not self.isProcessingDone:
-            time.sleep(0.5)
+        while self.isProcessingDone == False:
+            time.sleep(1)
 
-        # self.audio_service.unsubscribe(self.module_name)
+        self.audio_service.unsubscribe(self.module_name)
 
     def processRemote(self, nbOfChannels, nbOfSamplesByChannel, timeStamp, inputBuffer):
-        print("PROCESSS REMOTE")
+        """
+        Compute RMS from mic.
+        """
+        self.framesCount = self.framesCount + 1
 
-        self._buff.put(inputBuffer)
+        if (self.framesCount <= self.nbOfFramesToProcess):
+            # convert inputBuffer to signed integer as it is interpreted as a string by python
+            self.micFront=self.convertStr2SignedInt(inputBuffer)
+            #compute the rms level on front mic
+            rmsMicFront = self.calcRMSLevel(self.micFront)
+            print "rms level mic front = " + str(rmsMicFront)
+        else :
+            self.isProcessingDone=True
 
-    def generator(self):
-        print("GENERATOR")
-        while not self.isProcessingDone:
-            # Use a blocking get() to ensure there's at least one chunk of
-            # data, and stop iteration if the chunk is None, indicating the
-            # end of the audio stream.
-            chunk = self._buff.get()
-            if chunk is None:
-                return
+    def calcRMSLevel(self,data) :
+        """
+        Calculate RMS level
+        """
+        rms = 20 * np.log10( np.sqrt( np.sum( np.power(data,2) / len(data)  )))
+        return rms
 
-            data = np.frombuffer(chunk, np.int16)
-            # Now consume whatever other data's still buffered.
-            while True:
-                try:
-                    chunk = self._buff.get(block=False)
-                    if chunk is None:
-                        return
-                    data = np.concatenate((data, np.frombuffer(chunk, np.int16)), axis=None)
-                except queue.Empty:
-                    break
+    def convertStr2SignedInt(self, data) :
+        """
+        This function takes a string containing 16 bits little endian sound
+        samples as input and returns a vector containing the 16 bits sound
+        samples values converted between -1 and 1.
+        """
+        signedData=[]
+        ind=0;
+        for i in range (0,len(data)/2) :
+            signedData.append(data[ind]+data[ind+1]*256)
+            ind=ind+2
 
-            yield data
+        for i in range (0,len(signedData)) :
+            if signedData[i]>=32768 :
+                signedData[i]=signedData[i]-65536
+
+        for i in range (0,len(signedData)) :
+            signedData[i]=signedData[i]/32768.0
+
+        return signedData
 
 
-if __name__ == '__main__':
-    session = qi.Session()
-    ip = '192.168.1.123'
-    port = '9559'
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--ip", type=str, default="127.0.0.1",
+                        help="Robot IP address. On robot or Local Naoqi: use '127.0.0.1'.")
+    parser.add_argument("--port", type=int, default=9559,
+                        help="Naoqi port number")
+
+    args = parser.parse_args()
     try:
-        session.connect("tcp://" + ip + ":" + port)
+        # Initialize qi framework.
+        connection_url = "tcp://" + args.ip + ":" + str(args.port)
+        app = qi.Application(["SoundProcessingModule", "--qi-url=" + connection_url])
     except RuntimeError:
-        print ("Can't connect to Naoqi at ip \"" + ip + "\" on port " + port + ".\n"
-                                                                               "Please check your script arguments. "
-                                                                               "Run with -h option for help.")
+        print ("Can't connect to Naoqi at ip \"" + args.ip + "\" on port " + str(args.port) +".\n"
+               "Please check your script arguments. Run with -h option for help.")
         sys.exit(1)
-    mic = Microphone(session)
-    mic.__exit__(None, None, None)
+    MySoundProcessingModule = SoundProcessingModule(app)
+    app.session.registerService("SoundProcessingModule", MySoundProcessingModule)
+    MySoundProcessingModule.startProcessing()

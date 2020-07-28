@@ -12,11 +12,9 @@ gcWrapper = GooglecloudWrapper()
 def dataReceived():
     send(gcWrapper.recognize(response))
 
-
 def send(response):
     r = requests.post(decisionModuleUrl, data=response)
     return r
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=6100, use_reloader=False)

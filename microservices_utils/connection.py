@@ -1,5 +1,3 @@
-from f
-
 class Connection(object):
     """docstring for Connection."""
 
