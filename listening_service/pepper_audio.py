@@ -12,8 +12,7 @@ from audio_session_manager import AudioSessionManager
 class PepperAudioProvider(object):
     RATE = 16000
     """
-    A simple get signal from the front microphone of Nao & calculate its rms power.
-    It requires numpy.
+    Provides acsess to pepper's micropones. 
     """
 
     def __init__(self):
@@ -29,7 +28,7 @@ class PepperAudioProvider(object):
         self.session = qi.Session()
         try:
             self.session.connect("tcp://" + ip + ":" + port)
-            print("Robot connected to LISTEN module.")
+            print("Robot connected to listening_module.")
         except RuntimeError:
             print("Can't connect to Pepper at ip \""
                   + ip + "\" on port " + port + ".\n"
@@ -37,6 +36,9 @@ class PepperAudioProvider(object):
                   + "Run with -h option for help.")
 
     def listen(self, timeout=1):
+        """
+        Collect pepper's microphone output for timeout [s]
+        """
         with AudioSessionManager(self.session, timeout * 10) as stream:
             audio_generator = stream.generator()
             content = [content.tobytes() for content in audio_generator]
@@ -55,5 +57,4 @@ if __name__ == '__main__':
         + "Run with -h option for help.")
         sys.exit(1)
 
-    mic = PepperAudioProvider(session)
-    mic.__exit__(None, None, None)
+    provider = PepperAudioProvider()

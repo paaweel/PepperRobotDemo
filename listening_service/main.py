@@ -7,14 +7,11 @@ from flask import Flask, request, Response
 import qi
 from pepper_audio import PepperAudioProvider
 
-app = Flask('listenservice')
-text = ""
-emotion_service = None
+app = Flask('listening_service')
 
 PepperAudioProvider = PepperAudioProvider()
 PepperAudioProvider.connect()
 
-# TODO accumulate the answer and redirect from console into API response
 @app.route('/listen', methods=['GET'])
 def listen():
     data = PepperAudioProvider.listen(2)
