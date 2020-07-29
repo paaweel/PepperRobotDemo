@@ -19,5 +19,5 @@ class GooglecloudWrapper():
         # self.uri = 'gs://bucket_name/file_name.flac'
         # self.audio = {'uri': uri}
 
-    def recognize(audio):
+    def recognize(self, audio):
         return self.client.recognize(self.config, audio)
