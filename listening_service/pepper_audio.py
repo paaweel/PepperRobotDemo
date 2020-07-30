@@ -39,9 +39,13 @@ class PepperAudioProvider(object):
         """
         Collect pepper's microphone output for timeout [s]
         """
+        # audio = [chunk for chunk in self.getAudio(timeout)]
+
+        return self.getAudio(timeout)
+
+    def getAudio(self, timeout=1):
         with AudioSessionManager(self.session, timeout * 10) as stream:
-            audio_generator = stream.generator()
-            content = [content.tobytes() for content in audio_generator]
+            content = [content.tobytes() for content in stream.data()]
             return content
 
 

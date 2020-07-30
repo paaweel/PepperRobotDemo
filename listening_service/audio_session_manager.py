@@ -38,32 +38,29 @@ class AudioSessionManager(object):
 
 
     def processRemote(self, nbOfChannels, nbOfSamplesByChannel, timeStamp, inputBuffer):
-        print("Processing remote, frame count: " + str(self.framesCount))
         if (self.framesCount <= self.nbOfFramesToProcess):
+            print("Processing remote, frame count: " + str(self.framesCount))
             self.framesCount = self.framesCount + 1
             self._buff.put(inputBuffer)
         else :
             self.isProcessingDone=True
 
-    def generator(self):
-        print("Generating data")
-        while not self.isProcessingDone:
-            # Use a blocking get() to ensure there's at least one chunk of
-            # data, and stop iteration if the chunk is None, indicating the
-            # end of the audio stream.
-            chunk = self._buff.get()
-            if chunk is None:
-                return
 
-            data = np.frombuffer(chunk, np.int16)
-            # Now consume whatever other data's still buffered.
-            while True:
-                try:
-                    chunk = self._buff.get(block=False)
-                    if chunk is None:
-                        return
-                    data = np.concatenate((data, np.frombuffer(chunk, np.int16)), axis=None)
-                except queue.Empty:
-                    break
+    def data(self):
+        print("return data")
+        chunk = self._buff.get()
+        if chunk is None:
+            return
 
-            yield data
+        data = np.frombuffer(chunk, np.int16)
+        # Now consume whatever other data's still buffered.
+        while True:
+            try:
+                chunk = self._buff.get(block=False)
+                if chunk is None:
+                    return
+                data = np.concatenate((data, np.frombuffer(chunk, np.int16)), axis=None)
+            except queue.Empty:
+                break
+
+        return data
