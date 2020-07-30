@@ -6,30 +6,32 @@ app = Flask('video_service')
 videoWrapper = VideoWrapper()
 
 
-@app.route('/video', methods=['GET'])
+@app.route('/watch', methods=['GET'])
 def watch():
+    global videoWrapper
     try:
         frames = videoWrapper.getLastFrames()
-        return "Success"
+        return frames
     except Exception as ex:
         return str(ex)
 
 
 @app.route('/start', methods=['POST'])
 def startwatch():
+    global videoWrapper
     try:
-        videoWrapper.stopThread()
-    finally:
-        try:
-            videoWrapper.startThread()
-            return "Success"
-        except Exception as ex:
-            return str(ex)
+        print "Start watching."
+        videoWrapper.startThread()
+        return "Success"
+    except Exception as ex:
+        return str(ex)
 
 
 @app.route('/stop', methods=['POST'])
 def stopwatch():
+    global videoWrapper
     try:
+        print "Stop watching."
         videoWrapper.stopThread()
         return "Success"
     except Exception as ex:
