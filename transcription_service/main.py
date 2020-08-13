@@ -4,15 +4,23 @@ from flask import Flask
 import requests
 
 app = Flask("transrption_service")
-decisionModuleUrl = "http://127.0.0.1:7000"
+decisionModuleUrl = "http://127.0.0.1:6200"
+listeningServiceUrl = "http://127.0.0.1:6000/listen"
 
 gcWrapper = GooglecloudWrapper()
 
+
+@app.route('/run', methods=['POST'])
+def run():
+    r = requests.get(listeningServiceUrl, data="")  
+    return "DONE"  
+
 @app.route('/', methods=['POST'])
-def dataReceived():
-    send(gcWrapper.recognize(response))
+def dataReceived(data):
+    send(gcWrapper.recognize(data))
 
 def send(response):
+    print(response)
     r = requests.post(decisionModuleUrl, data=response)
     return r
 

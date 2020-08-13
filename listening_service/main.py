@@ -14,7 +14,9 @@ PepperAudioProvider.connect()
 
 @app.route('/listen', methods=['GET'])
 def listen():
+    print("Start listen")
     data = PepperAudioProvider.listen(2)
+    print(str(data))
     return str(data)
 
 if __name__ == '__main__':

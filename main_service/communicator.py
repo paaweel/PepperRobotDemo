@@ -7,7 +7,7 @@ import requests
 class Communicator:
     def __init__(self, path, language='English', test=True):
         self.language = language
-        with open(os.path.join(path, 'config.json'))as f:
+        with open(os.path.join(path, 'config.json')) as f:
             config = json.load(f)
             if test:
                 variables = config['development']
