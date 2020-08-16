@@ -1,0 +1,35 @@
+version: '3'
+services:
+  # main
+  # main:
+  #   build: ./main
+  #   restart: always
+  #   expose:
+  #     - 8000
+  #   volumes:
+  #     - ./main_service:/home/service/src
+  #   # depends_on:
+  #   #   - listening_service
+  #   links:
+  #     - transrption_service
+  #
+  #
+  #   environment:
+  #     FLASK_DEBUG: 1
+
+  # transrption_service
+  transcription_service:
+    build: ./transcription_service
+    restart: always
+    expose:
+      - 8100
+    volumes:
+      - ./transcription_service:/home/service/src
+    # depends_on:
+    #   - listening_service
+    # links:
+    #   - redis
+    #   - postgres
+
+    environment:
+      FLASK_DEBUG: 1
