@@ -1,7 +1,6 @@
 FROM python:3.7
 ENV GOOGLE_APPLICATION_CREDENTIALS="/tmp/keys/YT-Voice-Control.json"
 
-
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"

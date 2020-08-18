@@ -21,24 +21,25 @@ services:
       - 8101
     volumes:
       - ./listening_service:/home/service/src
+      - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
 
     environment:
       FLASK_DEBUG: 1
 
 
 
-  # transcription_service
-  transcription_service:
-    build: ./transcription_service
-
-    expose:
-      - 8100
-    volumes:
-      - ./transcription_service:/home/service/src
-      - ../credentials/YT-Voice-Control.json:/tmp/keys/YT-Voice-Control.json
-
-    environment:
-      FLASK_DEBUG: 1
+  # # transcription_service
+  # transcription_service:
+  #   build: ./transcription_service
+  #
+  #   expose:
+  #     - 8100
+  #   volumes:
+  #     - ./transcription_service:/home/service/src
+  #     - ../credentials/YT-Voice-Control.json:/tmp/keys/YT-Voice-Control.json
+  #
+  #   environment:
+  #     FLASK_DEBUG: 1
 
 
   # # say_service
