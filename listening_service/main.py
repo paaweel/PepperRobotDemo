@@ -1,26 +1,28 @@
 import requests
 from scipy.io import wavfile
-import soundfile as sf
+# import soundfile as sf
 import json
 
 from flask import Flask, request, Response
+# from flask_injector import FlaskInjector
+# from injector import inject
+
 import qi
-from pepper_audio import PepperAudioProvider
+
+from audio_service import AudioService
+# from dependencies import configure
+
 
 app = Flask('listening_service')
 
-PepperAudioProvider = PepperAudioProvider()
-PepperAudioProvider.connect()
-
+# @inject
 @app.route('/listen', methods=['GET'])
-def listen():
+def listen(service):
     print("Start listen")
-    data = PepperAudioProvider.listen(2)
+    data = service.listen(2)
     print(str(data))
     return str(data)
 
 if __name__ == '__main__':
-    test = False
-    if not test:
-        PepperAudioProvider.connect()
+    # FlaskInjector(app=app, modules=[configure])
     app.run(debug=True, port=6000, use_reloader=False)

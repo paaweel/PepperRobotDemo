@@ -6,22 +6,22 @@ import sys
 
 import numpy as np
 import time
+
+from audio_provider import AudioProvider
 from audio_session_manager import AudioSessionManager
 
 
-class PepperAudioProvider(object):
+class PepperAudioProvider(AudioProvider):
     RATE = 16000
     """
-    Provides acsess to pepper's micropones. 
+    Provides acsess to pepper's micropones.
     """
 
     def __init__(self):
         """
         Initialise services and variables.
         """
-        super(PepperAudioProvider, self).__init__()
-        # Get the service ALAudioDevice.
-        # self.audio_service.unsubscribe(self.module_name)
+        self.connect()
 
     def connect(self, ip="192.168.1.123", port="9559", language="English"):
         # type: (str, str, str) -> None
@@ -39,7 +39,6 @@ class PepperAudioProvider(object):
         """
         Collect pepper's microphone output for timeout [s]
         """
-        # audio = [chunk for chunk in self.getAudio(timeout)]
 
         return self.getAudio(timeout)
 
