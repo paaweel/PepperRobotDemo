@@ -1,15 +1,16 @@
-FROM python:3.6
+FROM python:3.7
+ENV GOOGLE_APPLICATION_CREDENTIALS="/tmp/keys/YT-Voice-Control.json"
+
 
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-RUN mkdir -p /home/service/src
-WORKDIR /home/service/src
-ADD . /home/service/src
-
-RUN pip install -r requirements.txt
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
 
 EXPOSE 9090
 
-CMD ["python", "/home/service/src/main.py"]
+COPY . .
+
+CMD ["python", "main.py"]

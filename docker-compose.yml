@@ -1,35 +1,73 @@
 version: '3'
 services:
-  # main
-  # main:
-  #   build: ./main
-  #   restart: always
+  # main_service
+  # main_service:
+  #   build: ./main_service
+  #
   #   expose:
-  #     - 8000
+  #     - 8100
   #   volumes:
   #     - ./main_service:/home/service/src
-  #   # depends_on:
-  #   #   - listening_service
-  #   links:
-  #     - transrption_service
-  #
   #
   #   environment:
   #     FLASK_DEBUG: 1
+  #
+  ## audio
+  # listening_service
+  listening_service:
+    build: ./listening_service
 
-  # transrption_service
+    expose:
+      - 8101
+    volumes:
+      - ./listening_service:/home/service/src
+
+    environment:
+      FLASK_DEBUG: 1
+
+
+
+  # transcription_service
   transcription_service:
     build: ./transcription_service
-    restart: always
+
     expose:
       - 8100
     volumes:
       - ./transcription_service:/home/service/src
-    # depends_on:
-    #   - listening_service
-    # links:
-    #   - redis
-    #   - postgres
+      - ../credentials/YT-Voice-Control.json:/tmp/keys/YT-Voice-Control.json
 
     environment:
       FLASK_DEBUG: 1
+
+
+  # # say_service
+  # say_service:
+  #   build: ./say_service
+  #
+  #   expose:
+  #     - 8100
+  #   volumes:
+  #     - ./say_service:/home/service/src
+  #
+  #   environment:
+  #     FLASK_DEBUG: 1
+  #
+  # google_cloud_service:
+  #   image: google/cloud-sdk:slim
+
+
+  # ## video
+  # # video_service
+  # video_service:
+  #   build: ./video_service
+  #
+  #   expose:
+  #     - 8100
+  #   volumes:
+  #     - ./video_service:/home/service/src
+  #   # depends_on:
+  #   #   - listening_service
+  #
+  #   environment:
+  #     FLASK_DEBUG: 1
