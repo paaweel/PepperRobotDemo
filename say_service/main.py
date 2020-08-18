@@ -5,7 +5,6 @@ app = Flask('say_service')
 
 sayWrapper = SayWrapper(testMode=False)
 
-
 @app.route('/', methods=['POST'])
 def say_text():
     global sayWrapper

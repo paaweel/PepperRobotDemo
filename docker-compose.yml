@@ -42,32 +42,34 @@ services:
   #     FLASK_DEBUG: 1
 
 
-  # say_service
-  say_service:
-    build: ./say_service
-
-    expose:
-      - 8100
-    volumes:
-      - ./say_service:/home/service/src
-      - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
-
-
-    environment:
-      FLASK_DEBUG: 1
-
-
-  # ## video
-  # # video_service
-  # video_service:
-  #   build: ./video_service
+  # # say_service
+  # say_service:
+  #   build: ./say_service
   #
   #   expose:
   #     - 8100
   #   volumes:
-  #     - ./video_service:/home/service/src
-  #   # depends_on:
-  #   #   - listening_service
+  #     - ./say_service:/home/service/src
+      # - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
+  #
   #
   #   environment:
   #     FLASK_DEBUG: 1
+
+
+  ## video
+  # video_service
+  video_service:
+    build: ./video_service
+
+    expose:
+      - 8100
+    volumes:
+      - ./video_service:/home/service/src
+      - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
+
+    # depends_on:
+    #   - listening_service
+
+    environment:
+      FLASK_DEBUG: 1
