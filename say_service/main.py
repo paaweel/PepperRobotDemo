@@ -1,7 +1,7 @@
 from flask import Flask, request
 from sayWrapper import SayWrapper
 
-app = Flask('sayservice')
+app = Flask('say_service')
 
 sayWrapper = SayWrapper(testMode=False)
 
@@ -22,7 +22,6 @@ def say_text_test():
     text = request.get_data()
     print(text)
     return "SAY string was sent."
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000, use_reloader=False)

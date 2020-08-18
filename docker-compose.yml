@@ -14,17 +14,17 @@ services:
   #
   ## audio
   # listening_service
-  listening_service:
-    build: ./listening_service
-
-    expose:
-      - 8101
-    volumes:
-      - ./listening_service:/home/service/src
-      - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
-
-    environment:
-      FLASK_DEBUG: 1
+  # listening_service:
+  #   build: ./listening_service
+  #
+  #   expose:
+  #     - 8101
+  #   volumes:
+  #     - ./listening_service:/home/service/src
+  #     - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
+  #
+  #   environment:
+  #     FLASK_DEBUG: 1
 
 
 
@@ -42,20 +42,19 @@ services:
   #     FLASK_DEBUG: 1
 
 
-  # # say_service
-  # say_service:
-  #   build: ./say_service
-  #
-  #   expose:
-  #     - 8100
-  #   volumes:
-  #     - ./say_service:/home/service/src
-  #
-  #   environment:
-  #     FLASK_DEBUG: 1
-  #
-  # google_cloud_service:
-  #   image: google/cloud-sdk:slim
+  # say_service
+  say_service:
+    build: ./say_service
+
+    expose:
+      - 8100
+    volumes:
+      - ./say_service:/home/service/src
+      - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
+
+
+    environment:
+      FLASK_DEBUG: 1
 
 
   # ## video
