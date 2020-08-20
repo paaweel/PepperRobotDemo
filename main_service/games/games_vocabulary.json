@@ -22,7 +22,7 @@
   "polish":{
     "voice_recogniser_language_symbol": "pl-PL",
     "welcome_game": "Cześć. Miło cię poznać.",
-    "standard_ultimatum_rules": "Zagrajmy w grę Ultimatum. Podam ci zasady. Mamy w dwójkę 10 monet do podziału. Na zmianę oferujemy drugiemu graczowi sposób podziału tych monet międz nas. Musimy rodzielić wszystkie monety. Najmniejszą możliwą do przydzielenia stawką jest 1, a największą 9. Druga osoba może zaakceptować lub odrzucić ofertę. Akceptacja oznacza rozdzielenie pieniędzy w zaproponowany sposób. Odrzucenie oferty oznacza, że żaden z graczy nie dostaje pieniędzy. Osoba z największą ilością monet wygrywa. ",
+    "standard_ultimatum_rules": "Zagrajmy w grę Ultimatum. Podam ci zasady. Mamy w dwójkę 10 monet do podziału. Na zmianę oferujemy drugiemu graczowi sposób podziału tych monet międz nas. Musimy rodzielić wszystkie monety. Najmniejszą możliwą do przydzielenia stawką jest 1, a największą 9. Druga osoba może zaakceptować lub odrzucić ofertę. Akceptacja oznacza rozdzielenie pieniędzy w zaproponowany sposób. Odrzucenie oferty oznacza, że żaden z graczy nie dostaje pieniędzy. Osoba z największą ilością monet wygrywa.",
     "ask_to_play": "Chcesz zagrać w tę grę ze mną?",
     "inform_about_total_capital": "Całościowy kapitał to 10 monet.",
     "confirm_total_capital": "Wspaniale, wybrałes",
