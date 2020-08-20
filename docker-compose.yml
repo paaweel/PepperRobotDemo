@@ -4,10 +4,10 @@ services:
   main_service:
     build: ./main_service
 
-    expose:
-      - 8100
     volumes:
       - ./main_service:/home/service/src
+    expose:
+      - 8100
 
     environment:
       FLASK_DEBUG: 1
@@ -16,13 +16,13 @@ services:
   # listening_service
   listening_service:
     build: ./listening_service
-
+    links:
+      - transcription_service
     expose:
       - 8101
     volumes:
       - ./listening_service:/home/service/src
       - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
-
     environment:
       FLASK_DEBUG: 1
 
