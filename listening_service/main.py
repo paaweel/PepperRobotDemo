@@ -12,7 +12,6 @@ import qi
 from audio_service import AudioService
 # from dependencies import configure
 
-
 app = Flask('listening_service')
 
 # @inject

@@ -80,6 +80,6 @@ class VideoWrapper:
         for frame in arr:
             lists.append(frame.tolist())
         json_frames = json.dumps(lists)
-        with open('data' + str(random.randint()) + '.json', 'w') as f:
+        with open('data' + str(random.randint(0, 4000)) + '.json', 'w') as f:
             json.dump(json_frames, f)
         return json_frames

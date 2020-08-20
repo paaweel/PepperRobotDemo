@@ -44,7 +44,6 @@ services:
     environment:
       FLASK_DEBUG: 1
 
-
   ## video
   # video_service
   video_service:
