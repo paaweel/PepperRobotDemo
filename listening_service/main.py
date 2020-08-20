@@ -12,7 +12,6 @@ import qi
 from audio_service import AudioService
 # from dependencies import configure
 
-
 app = Flask('listening_service')
 
 # @inject
@@ -25,4 +24,4 @@ def listen(service):
 
 if __name__ == '__main__':
     # FlaskInjector(app=app, modules=[configure])
-    app.run(debug=True, port=6000, use_reloader=False)
+    app.run(debug=True, port=5000, use_reloader=False)

@@ -3,11 +3,8 @@ services:
   # main_service
   main_service:
     build: ./main_service
-
     volumes:
       - ./main_service:/home/service/src
-    expose:
-      - 8100
 
     environment:
       FLASK_DEBUG: 1
@@ -18,29 +15,21 @@ services:
     build: ./listening_service
     links:
       - transcription_service
-    expose:
-      - 8101
     volumes:
       - ./listening_service:/home/service/src
       - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
     environment:
       FLASK_DEBUG: 1
 
-
-
   # transcription_service
   transcription_service:
-    build: ./transcription_service
-
-    expose:
-      - 8100
+    build: ./transcription_services
     volumes:
       - ./transcription_service:/home/service/src
       - ../credentials/YT-Voice-Control.json:/tmp/keys/YT-Voice-Control.json
 
     environment:
       FLASK_DEBUG: 1
-
 
   # say_service
   say_service:
@@ -52,18 +41,13 @@ services:
       - ./say_service:/home/service/src
       - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
 
-
     environment:
       FLASK_DEBUG: 1
-
 
   ## video
   # video_service
   video_service:
     build: ./video_service
-
-    expose:
-      - 8100
     volumes:
       - ./video_service:/home/service/src
       - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
