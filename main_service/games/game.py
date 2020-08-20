@@ -2,16 +2,10 @@ import enum
 import json
 import os
 from communicator import Communicator
+from decision_module import DecisionModule
 from games.ultimatum_standard import UltimatumStandard
 
 
-class GameTypes(enum.Enum):
-    UltimatumStandard = 1
-    UltimatumTest = 2
-
-
-# change to abstract class which is implemented by Ultimatum*
-# and use Enums only when you are sure they will not create bugs
 class Game:
     def __init__(self, path, communicator, game_type="ultimatum_standard"):
         # type: (Game, str, Communicator, str) -> None
@@ -25,16 +19,23 @@ class Game:
         with open(os.path.join(path, 'games/games_vocabulary.json'))as f:
             games_vocabulary = json.load(f)
         self.games_vocabulary = games_vocabulary[self.language.lower()]
+        self.decisionModule = DecisionModule(self.games_vocabulary)
 
         available_games = {
             "ultimatum_standard": UltimatumStandard,
             "ultimatum_test": UltimatumStandard
         }
-        self.game_type = available_games[game_type](self.language, self.communicator, self.games_vocabulary)
+        self.game_type = available_games[game_type](self.language,
+                                                    self.communicator,
+                                                    self.games_vocabulary,
+                                                    self.decisionModule)
 
     def play(self, test_mode=False):
-        for step in self.game_schematic:
-            finish = getattr(self.game_type, step)(test_mode)
-            if finish:
-                getattr(self.game_type, 'finish_game')(test_mode)
-                break
+        for generalStep in self.game_schematic["structure"]:
+            iterations = self.game_schematic["structure"][generalStep]
+            for i in range(iterations):
+                for step in self.game_schematic[generalStep]:
+                    finish = getattr(self.game_type, step)(test_mode)
+                    if step == "ask_to_play" and finish:
+                        getattr(self.game_type, 'finish_game')(test_mode)
+                        return
