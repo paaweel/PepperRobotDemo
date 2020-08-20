@@ -5,13 +5,6 @@ from communicator import Communicator
 from games.ultimatum_standard import UltimatumStandard
 
 
-class GameTypes(enum.Enum):
-    UltimatumStandard = 1
-    UltimatumTest = 2
-
-
-# change to abstract class which is implemented by Ultimatum*
-# and use Enums only when you are sure they will not create bugs
 class Game:
     def __init__(self, path, communicator, game_type="ultimatum_standard"):
         # type: (Game, str, Communicator, str) -> None
@@ -30,11 +23,16 @@ class Game:
             "ultimatum_standard": UltimatumStandard,
             "ultimatum_test": UltimatumStandard
         }
-        self.game_type = available_games[game_type](self.language, self.communicator, self.games_vocabulary)
+        self.game_type = available_games[game_type](self.language,
+                                                    self.communicator,
+                                                    self.games_vocabulary,
+                                                    self.decisionModule)
 
     def play(self, test_mode=False):
-        for step in self.game_schematic:
-            finish = getattr(self.game_type, step)(test_mode)
-            if finish:
-                getattr(self.game_type, 'finish_game')(test_mode)
-                break
+        for generalStep, iterations in self.game_schematic["structure"]:
+            for i in range(iterations):
+                for step in self.game_schematic[generalStep]:
+                    finish = getattr(self.game_type, step)(test_mode)
+                    if step=="ask_to_play" and finish:
+                        getattr(self.game_type, 'finish_game')(test_mode)
+                        return
