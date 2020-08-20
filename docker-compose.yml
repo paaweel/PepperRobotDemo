@@ -5,6 +5,8 @@ services:
     build: ./main_service
     volumes:
       - ./main_service:/home/service/src
+    links:
+      - say_service
 
     environment:
       FLASK_DEBUG: 1
@@ -23,7 +25,7 @@ services:
 
   # transcription_service
   transcription_service:
-    build: ./transcription_services
+    build: ./transcription_service
     volumes:
       - ./transcription_service:/home/service/src
       - ../credentials/YT-Voice-Control.json:/tmp/keys/YT-Voice-Control.json
@@ -34,9 +36,6 @@ services:
   # say_service
   say_service:
     build: ./say_service
-
-    expose:
-      - 8100
     volumes:
       - ./say_service:/home/service/src
       - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/

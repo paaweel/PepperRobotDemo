@@ -9,7 +9,7 @@ ENV PYTHONPATH="$PYTHONPATH:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/li
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-EXPOSE 9090
+EXPOSE 5000
 
 COPY . .
 

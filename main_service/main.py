@@ -1,12 +1,17 @@
-import os
-import flask from Flask
-from communicator import Communicator
-from games.game import Game
+
+# from communicator import Communicator
+# from games.game import Game
+
+from pepper import Pepper
 
 
+p = Pepper()
 
-if __name__ == '__main__':
-    path = os.getcwd()
-    communicator = Communicator(path=path)
-    game = Game(path, communicator)
-    game.play()
+p.say_something()
+
+
+# if __name__ == '__main__':
+#     path = os.getcwd()
+#     communicator = Communicator(path=path)
+#     game = Game(path, communicator)
+#     game.play()

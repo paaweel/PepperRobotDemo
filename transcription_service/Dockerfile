@@ -8,7 +8,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
-EXPOSE 9090
+EXPOSE 5000
 
 COPY . .
 
