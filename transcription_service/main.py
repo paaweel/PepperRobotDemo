@@ -12,8 +12,8 @@ gcWrapper = GooglecloudWrapper()
 
 @app.route('/run', methods=['POST'])
 def run():
-    r = requests.get(listeningServiceUrl, data="")  
-    return "DONE"  
+    r = requests.get(listeningServiceUrl, data="")
+    return "DONE"
 
 @app.route('/', methods=['POST'])
 def dataReceived(data):
@@ -25,4 +25,4 @@ def send(response):
     return r
 
 if __name__ == '__main__':
-    app.run(debug=True, port=6100, use_reloader=False)
+    app.run(debug=True, port=5000, use_reloader=False)
