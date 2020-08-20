@@ -25,4 +25,4 @@ class Communicator:
         response = requests.get(self.listen_url).content
         if verbose:
             print(response)
-	return response
+        return response

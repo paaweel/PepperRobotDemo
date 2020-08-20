@@ -2,6 +2,7 @@ import enum
 import json
 import os
 from communicator import Communicator
+from decision_module import DecisionModule
 from games.ultimatum_standard import UltimatumStandard
 
 
@@ -18,6 +19,7 @@ class Game:
         with open(os.path.join(path, 'games/games_vocabulary.json'))as f:
             games_vocabulary = json.load(f)
         self.games_vocabulary = games_vocabulary[self.language.lower()]
+        self.decisionModule = DecisionModule(self.games_vocabulary)
 
         available_games = {
             "ultimatum_standard": UltimatumStandard,
@@ -29,10 +31,11 @@ class Game:
                                                     self.decisionModule)
 
     def play(self, test_mode=False):
-        for generalStep, iterations in self.game_schematic["structure"]:
+        for generalStep in self.game_schematic["structure"]:
+            iterations = self.game_schematic["structure"][generalStep]
             for i in range(iterations):
                 for step in self.game_schematic[generalStep]:
                     finish = getattr(self.game_type, step)(test_mode)
-                    if step=="ask_to_play" and finish:
+                    if step == "ask_to_play" and finish:
                         getattr(self.game_type, 'finish_game')(test_mode)
                         return

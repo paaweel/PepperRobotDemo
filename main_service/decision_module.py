@@ -6,26 +6,26 @@ class DecisionModule:
 
     def push_answer_int(self, str_num):
         try:
-    	       int_num = int(str_num)
-		       self.offers.append(int_num)
-	    except ValueError:
-		       return
+            int_num = int(str_num)
+            self.offers.append(int_num)
+        except ValueError:
+            return
 
     def get_last_int(self):
-        if(self.offers):
+        if self.offers:
             return self.offers[-1]
 
     def push_answer_bool(self, str_bool):
         try:
-            if(any(item in self.games_vocabulary["yes"] == str_bool)):
+            if any(option == str_bool for option in self.games_vocabulary["yes"]):
                 self.decisions.append(True)
                 return
-            if(any(item in self.games_vocabulary["no"] == str_bool)):
+            if any(option == str_bool for option in self.games_vocabulary["no"]):
                 self.decisions.append(False)
                 return
-	    except ValueError:
-		       return
+        except ValueError:
+            return
 
     def get_last_bool(self):
-        if(self.decisions):
+        if self.decisions:
             return self.decisions[-1]

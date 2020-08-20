@@ -1,5 +1,6 @@
 FROM python:3.7
 
+RUN pip install virtualenv
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
