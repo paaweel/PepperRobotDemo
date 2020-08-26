@@ -32,7 +32,7 @@ class PepperAudioProvider:
         """
         Collect pepper's microphone output for timeout [s]
         """
-
+        print("about to listen")
         return self.getAudio(timeout)
 
     def getAudio(self, timeout=1):
