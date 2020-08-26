@@ -1,32 +1,14 @@
+import os
+from flask import Flask
 
-# from communicator import Communicator
-# from games.game import Game
+from communicator import Communicator
+from games.game import Game
 
-from pepper import Pepper
-
-
-p = Pepper()
-
-p.say_something()
-
-
-# if __name__ == '__main__':
-#     path = os.getcwd()
-#     communicator = Communicator(path=path)
-#     game = Game(path, communicator)
-#     game.play()
-# 
-# import os
-# from flask import Flask
-#
-# from communicator import Communicator
-# from games.game import Game
-#
 # app = Flask('main_service')
-#
-# if __name__ == '__main__':
-#     # app.run(debug=True, port=7000, use_reloader=False)
-#     path = os.getcwd()
-#     communicator = Communicator(path=path)
-#     game = Game(path, communicator)
-#     game.play()
+
+if __name__ == '__main__':
+    # app.run(host="0.0.0.0", debug=True, port=5000, use_reloader=False)
+    communicator = Communicator()
+    path = os.getcwd()
+    game = Game(path, communicator)
+    game.play()

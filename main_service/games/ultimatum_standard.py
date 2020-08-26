@@ -32,19 +32,19 @@ class UltimatumStandard:
             num = input("Answer and hit ENTER:")
         else:
             num = self.communicator.listen()
-        decisionModule.push_answer_int(num)
+        self.decisionModule.push_answer_int(num)
 
     def get_answer_bool(self, test_mode=False):
         if test_mode:
             yesno = input("Answer and hit ENTER:")
         else:
             yesno = self.communicator.listen()
-        decisionModule.push_answer_bool(yesno)
-        return decisionModule.get_last_bool(yesno)
+        self.decisionModule.push_answer_bool(yesno)
+        return self.decisionModule.get_last_bool()
 
     def finish_game(self, test_mode=False):
         if test_mode:
             print(self.vocabulary["finish_game"])
         else:
             self.communicator.say(self.vocabulary["finish_game"])
-        return false
+        return False
