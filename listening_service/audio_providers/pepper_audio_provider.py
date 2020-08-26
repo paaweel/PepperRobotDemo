@@ -11,7 +11,7 @@ from audio_provider import AudioProvider
 from audio_session_manager import AudioSessionManager
 
 
-class PepperAudioProvider(AudioProvider):
+class PepperAudioProvider():
     RATE = 16000
     """
     Provides acsess to pepper's micropones.
@@ -39,7 +39,7 @@ class PepperAudioProvider(AudioProvider):
         """
         Collect pepper's microphone output for timeout [s]
         """
-
+        print("about to listen")
         return self.getAudio(timeout)
 
     def getAudio(self, timeout=1):

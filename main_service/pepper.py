@@ -22,7 +22,11 @@ class Pepper():
         print(self.sayUrl + "/")
         requests.post(url=self.sayUrl + "/", data="How you doin")
 
+    def say(self, data):
+        print(self.sayUrl + "/")
+        requests.post(url=self.sayUrl + "/", data=data)
+
     def get_raw_audio(self):
-        data = requests.post(self.listenUrl + "/listen")
+        data = requests.get(url=self.listenUrl + "/listen")
         print (data)
         return data

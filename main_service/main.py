@@ -3,19 +3,26 @@
 # from games.game import Game
 
 from pepper import Pepper
+import time
 
 
 p = Pepper()
 
+
 p.say_something()
+time.sleep(10)
+print(p.get_raw_audio())
+
 
 
 # if __name__ == '__main__':
 #     path = os.getcwd()
 #     communicator = Communicator(path=path)
-#     game = Game(path, communicator)
+#     game = Game(path, p)
 #     game.play()
-# 
+
+
+
 # import os
 # from flask import Flask
 #

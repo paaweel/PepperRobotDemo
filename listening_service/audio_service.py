@@ -10,7 +10,7 @@ class AudioService:
     #     self.ap = audioProvider
 
     def __init__(self):
-        self.ap = PepperAudioProvider
+        self.ap = PepperAudioProvider()
 
     def listen(self, timeout=1):
-        return ap.listen(self, timeout)
+        return self.ap.listen(timeout)
