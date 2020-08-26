@@ -2,12 +2,12 @@
    "ultimatum_standard":{
       "structure":{
          "begin":1,
-         "play_round":3,
+         "play_round":0,
          "finish":1
       },
       "begin":[
          "greeting",
-         "game_description",
+         
          "ask_to_play",
          "get_answer_bool"
       ],
