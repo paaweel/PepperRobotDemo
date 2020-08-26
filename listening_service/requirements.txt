@@ -2,3 +2,6 @@ requests==2.23.0
 numpy==1.16.6
 Flask==1.1.2
 six==1.15.0
+
+qi~=1.8.1
+injector~=0.18.3

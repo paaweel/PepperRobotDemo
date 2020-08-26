@@ -1,8 +1,7 @@
-
-import time
 from six.moves import queue
 import random
 import numpy as np
+
 
 class AudioSessionManager(object):
     """Manages audio session with the robot"""
@@ -21,7 +20,6 @@ class AudioSessionManager(object):
         print("Service is registered")
         session.registerService(self.module_name, self)
 
-
     def __enter__(self):
         print("Starting listening session")
         self.audio_service.setClientPreferences(self.module_name, AudioSessionManager.RATE, 3, 0)
@@ -29,22 +27,19 @@ class AudioSessionManager(object):
         self.isProcessingDone = False
         return self
 
-
     def __exit__(self, type, value, traceback):
         print("Processing finished")
         self.audio_service.unsubscribe(self.module_name)
         self.isProcessingDone = True
         self._buff.put(None)
 
-
     def processRemote(self, nbOfChannels, nbOfSamplesByChannel, timeStamp, inputBuffer):
-        if (self.framesCount <= self.nbOfFramesToProcess):
+        if self.framesCount <= self.nbOfFramesToProcess:
             print("Processing remote, frame count: " + str(self.framesCount))
             self.framesCount = self.framesCount + 1
             self._buff.put(inputBuffer)
-        else :
-            self.isProcessingDone=True
-
+        else:
+            self.isProcessingDone = True
 
     def data(self):
         print("return data")

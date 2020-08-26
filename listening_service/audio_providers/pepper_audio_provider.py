@@ -1,17 +1,10 @@
-import string
-import random
-
 import qi
 import sys
 
-import numpy as np
-import time
-
-from audio_provider import AudioProvider
 from audio_session_manager import AudioSessionManager
 
 
-class PepperAudioProvider(AudioProvider):
+class PepperAudioProvider:
     RATE = 16000
     """
     Provides acsess to pepper's micropones.
