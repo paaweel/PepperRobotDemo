@@ -18,7 +18,7 @@ class AudioSessionManager(object):
         self.session = session
         self.audio_service = self.session.service("ALAudioDevice")
         self.module_name = "SoundProcessingModule" + str(random.randint(0, 10000))
-        print("Service is registered")
+        print("Service is being registered")
         session.registerService(self.module_name, self)
 
 

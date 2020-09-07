@@ -15,11 +15,17 @@ services:
   # listening_service
   listening_service:
     build: ./listening_service
-    links:
-      - transcription_service
+    # links:
+    #   - transcription_service
     volumes:
       - ./listening_service:/home/service/src
       - ../pynaoqi-python2.7-2.5.5.5-linux64/:/home/naoqi_lib/pynaoqi-python2.7-2.5.5.5-linux64/
+
+    network_mode: "host"
+
+    ports:
+      - 5000:5000
+
     environment:
       FLASK_DEBUG: 1
 

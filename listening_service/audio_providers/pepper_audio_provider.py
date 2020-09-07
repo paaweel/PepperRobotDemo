@@ -40,7 +40,10 @@ class PepperAudioProvider():
         Collect pepper's microphone output for timeout [s]
         """
         print("about to listen")
-        return self.getAudio(timeout)
+        data = self.getAudio(timeout)
+        print("done")
+        print(data)
+        return data
 
     def getAudio(self, timeout=1):
         with AudioSessionManager(self.session, timeout * 10) as stream:
