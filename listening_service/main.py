@@ -19,7 +19,7 @@ service = AudioService()
 @app.route('/listen', methods=['GET'])
 def listen():
     print("Start listen")
-    data = service.listen(2)
+    data = service.listen(5)
     print(str(data))
     return str(data)
 
