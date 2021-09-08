@@ -1,4 +1,4 @@
 requests==2.23.0
 Flask==1.1.2
 numpy==1.16.6
-Pillow==6.2.1
+Pillow==8.3.2
