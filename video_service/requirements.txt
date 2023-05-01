@@ -1,4 +1,4 @@
 requests==2.23.0
-Flask==1.1.2
+Flask==2.3.2
 numpy==1.16.6
 Pillow==9.0.0
